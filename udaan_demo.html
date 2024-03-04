@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +7,14 @@
   <title>Generated Text</title>
 </head>
 <body>
-  <h1>Generated Text</h1>
-  <p id="generated-text">Loading...</p> <!-- Placeholder for generated text -->
-  <script src="frontend.js"></script> <!-- Include your frontend JavaScript file -->
+  <h1>Generate Text</h1>
+  <form id="inputForm">
+    <label for="textInput">Enter your prompt:</label><br>
+    <textarea id="textInput" rows="4" cols="50" placeholder="Enter your prompt here"></textarea><br>
+    <button type="submit">Generate Text</button>
+  </form>
+  <div id="generated-text">Loading...</div>
+
+<script src="frontend.js"></script>
 </body>
 </html>

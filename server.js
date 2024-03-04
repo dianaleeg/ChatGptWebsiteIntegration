@@ -1,4 +1,7 @@
+// server.js
 const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path'); // Import the path module
 const app = express();
 const OpenAI = require('openai');
 
@@ -6,28 +9,40 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Define a route handler for the root URL ("/")
+app.use(bodyParser.json());
+// Serve static files from the directory containing your HTML and JavaScript files
+app.use(express.static(__dirname));
+
+// Define a route handler for GET requests to the root URL
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  // Serve the HTML file located in the 'public' directory
+  res.sendFile(path.join(__dirname, 'udaan_demo.html'));
 });
 
-app.get('/generate-text', async (req, res) => {
+// Define a route handler for GET requests to "/generate-text"
+app.get('/generate-text', (req, res) => {
+  res.status(405).send('Method Not Allowed');
+});
+
+// Define a route handler for POST requests to "/generate-text"
+app.post('/generate-text', async (req, res) => {
+  const userInput = req.body.userInput;
+
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
         {
           "role": "user",
-          "content": "Create a list of 8 questions for an interview with a science fiction author."
+          "content": userInput
         }
       ],
       temperature: 0.5,
-      max_tokens: 64,
+      max_tokens: 120,
       top_p: 1,
     });
 
-    // Check if response.choices[0].message.content exists before sending it
-    if (response.choices[0].message.content) {
+    if (response.choices && response.choices[0] && response.choices[0].message && response.choices[0].message.content) {
       const generatedText = response.choices[0].message.content;
       res.json({ generatedText });
     } else {
