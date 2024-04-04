@@ -16,7 +16,7 @@ app.use(express.static(__dirname));
 // Define a route handler for GET requests to the root URL
 app.get('/', (req, res) => {
   // Serve the HTML file located in the 'public' directory
-  res.sendFile(path.join(__dirname, 'udaan_demo.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Define a route handler for GET requests to "/generate-text"
