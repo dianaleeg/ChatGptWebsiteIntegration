@@ -12,3 +12,12 @@ index.html -> frontend.js -> server.js
 
 Response
 server.js -> frontend.js -> index.html
+
+Libraries needed:
+Node.js (https://nodejs.org/en)
+
+To Launch Server:
+(from terminal) node server.js
+
+Open Browser:
+Go to localhost:3000
